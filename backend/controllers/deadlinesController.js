@@ -28,6 +28,8 @@ const addDeadline = async (req, res) => {
 
     try {
         const deadline = deadlineModel({title, date, description});
+        error = deadline.validateSync();
+        if(error) throw error
         const status = await deadlinesModel.updateOne(
             { _id: deadlines_id },
             {
@@ -36,7 +38,7 @@ const addDeadline = async (req, res) => {
                 }
             }
         ).exec();
-        
+  
         res.status(200).json(deadline);
         
     } catch (error) {
@@ -47,12 +49,12 @@ const addDeadline = async (req, res) => {
 
 // update a deadline
 const updateDeadline = async (req, res) => {
-    const { title, date, description } = req.body;
+    const { title, date, _id } = req.body;
 
     // TODO: REPLACE THIS ONCE AUTH IS COMPLETE
     const deadlines_id = '63fde3eceaef20b32ddb8917'; 
 
-    const deadline_id = req.params.did;
+    const deadline_id = _id;
 
     try {
         // Remove the old deadline
@@ -68,7 +70,7 @@ const updateDeadline = async (req, res) => {
         ).exec();
         
         // Create a new deadline
-        const deadline = deadlineModel({title, date, description});
+        const deadline = deadlineModel({title, date});
         
         // Add the new deadline
         status = await deadlinesModel.updateOne(

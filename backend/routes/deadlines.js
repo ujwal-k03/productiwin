@@ -10,7 +10,7 @@ router.get('/', showDeadlines);
 router.post('/', addDeadline);
 
 // update a deadline
-router.patch('/:did', updateDeadline );
+router.patch('/', updateDeadline );
 
 // delete a deadline
 router.delete('/:did', deleteDeadline); 
