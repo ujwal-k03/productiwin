@@ -3,7 +3,7 @@ import Timer from "./Timer";
 
 const Menu = () => {
     return (
-        <div className="menu col-span-2 flex">
+        <div className="menu col-span-1 flex">
             <div className="bg-white shadow-lg rounded-3xl m-4 flex-grow items-center">
                 <div className="my-6">
                     <ul className="flex flex-col w-4/5 ml-3">

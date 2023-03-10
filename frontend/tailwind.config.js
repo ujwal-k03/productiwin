@@ -3,8 +3,13 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  safelist: [
+    'bg-blue-200',
+    'bg-red-200',
+    'bg-green-200',
+    'bg-yellow-200'
+  ],
   theme: {
-
     extend: {
       colors: {
         'primary' : "#89ABE3FF",
@@ -15,8 +20,9 @@ module.exports = {
         'nunito': ['Nunito']
       },
       height: {
-        'fuck-you': "70vh"
-      }
+        'fuck-you': "70vh",
+        '9/10': "90%",
+      },
     },
   },
   plugins: [],

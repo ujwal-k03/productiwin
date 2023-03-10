@@ -5,7 +5,7 @@ const deadlineModel = require('../models/deadlinesModel').deadlineModel;
 const showDeadlines = async (req, res) => {
 
     // TODO: REPLACE THIS ONCE AUTH IS COMPLETE
-    const deadlines_id = '63fde3eceaef20b32ddb8917'; 
+    const deadlines_id = '63fde3eceaef20b32ddb8917';
 
     try {
         const deadlines = await deadlinesModel.findById(deadlines_id, {_id: 0, deadlines: 1});

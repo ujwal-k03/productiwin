@@ -42,10 +42,10 @@ const Deadlines = () => {
     }, [update]);
 
     return (
-        <div className="deadlines col-span-3">
+        <div className="deadlines col-span-4">
             <div className="bg-white shadow-lg rounded-3xl m-4 flex flex-col relative">
                 <h1 className="text-center font-extrabold uppercase text-3xl my-4">Deadlines</h1>
-                <div className="flex justify-center">
+                <div draggable="true" className="flex justify-center">
                     <button className="add-deadline-btn" onClick={()=>{setMode(3)}}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

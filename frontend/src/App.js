@@ -16,7 +16,6 @@ function App() {
         <div className="base h-screen bg-blue-200 font-nunito flex flex-col">
             <Navbar/>
             <div className='grid grid-cols-7 flex-grow'>
-              <Menu/>
               <Routes>
                 <Route
                   path='/plans'
@@ -39,6 +38,7 @@ function App() {
                   element={<Calendar/>}
                 />
               </Routes>
+              <Menu/>
               <Music/>
             </div>
         </div>
