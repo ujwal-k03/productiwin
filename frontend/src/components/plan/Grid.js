@@ -29,7 +29,7 @@ const Grid = () => {
     ]
 
     return (
-        <div className="task-grid">
+        <div className="task-grid z-0">
             { timeList.map((time, index) => <Row key={index} time={time}/>) }
         </div>
     );

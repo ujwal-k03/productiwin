@@ -4,7 +4,7 @@ const elementOverlap = (task, element) => {
 
     if(element.id === task.id)
         return false;
-    
+
     if(taskRect.bottom - elementRect.top > 1 &&  1 < elementRect.bottom - taskRect.top)
         return true;
     
@@ -18,7 +18,7 @@ export const isOverlap = (clsCanvas, clsTask, element) => {
     for(let i = 0; i<tasks.length; i++){
         const task = tasks[i];
         
-        if(elementOverlap(task, element))
+        if(elementOverlap(task, element, clsCanvas))
             return true;
     }
 

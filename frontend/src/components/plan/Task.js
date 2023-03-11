@@ -3,7 +3,7 @@ import ActionMenu from "./ActionMenu";
 import { Interactive } from './Interactive';
 import { getHeight, getTime, getTimeString, getTranslate} from './TimeTools';
 
-const Task = ({task, id, modifyTask}) => {
+const Task = ({task, id, modifyTask, deleteTask}) => {
     
     const resizeRef = useRef(null);
     const inputRef = useRef(null);
@@ -45,7 +45,7 @@ const Task = ({task, id, modifyTask}) => {
             }} 
             ref={resizeRef}
             id={id}
-            className={`flex items-start task right-0 top-0 w-11/12 bg-${color}-200 rounded-md text-center z-0`}>
+            className={`flex items-start task right-0 top-0 w-11/12 bg-${color}-200 rounded-md text-center z-50`}>
 
                 <div className="flex-shrink-0 text-xs h-[24px] bg-pink-300 rounded-md p-1 border border-gray-400 text-gray-700">
                     {getTimeString(translate)} - {getTimeString(height + translate)}
@@ -64,7 +64,7 @@ const Task = ({task, id, modifyTask}) => {
                         />
                     
                 </div>
-                {resizeRef.current && <ActionMenu scope={resizeRef.current} setColor={setColor}/>}
+                {resizeRef.current && <ActionMenu scope={resizeRef.current} id={id} deleteTask={deleteTask} setColor={setColor}/>}
                 <div className="resizer resizer-t z-10"></div>
                 <div className="resizer resizer-b z-10"></div>
         </div>

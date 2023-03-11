@@ -45,6 +45,10 @@
     cursor: move;
 }
 
+.task.dummy {
+    position: absolute;
+    height: 400px;
+}
 .resizer {
     position: absolute;
 }

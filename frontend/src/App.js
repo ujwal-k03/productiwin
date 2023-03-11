@@ -1,48 +1,38 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements} from 'react-router-dom';
+  
 // pages / components
 import Deadlines from './components/Deadlines';
 import Plan from './components/Plan';
-import Menu from "./components/Menu";
-import Navbar from "./components/Navbar";
-import Music from "./components/Music";
-import Goals from './components/Goals';
 import Calendar from './components/Calendar';
+import Base from './layouts/Base';
+import Home from './layouts/Home';
+import Do from './layouts/Do';
+import NotFound from './layouts/NotFound';
+import Login from './layouts/Login';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Base/>}>
+      <Route index element={<Home/>}></Route>
+      <Route path='login' element={<Login/>}></Route>
+      <Route path='do' element={<Do/>}>
+        <Route path='calendar' element={<Calendar/>}></Route>
+        <Route path='plans' element={<Plan/>}></Route>
+        <Route path='deadlines' element={<Deadlines/>}></Route>
+        <Route path='goals' element={<Deadlines/>}></Route>
+      </Route>
+
+      <Route path='*' element={<NotFound/>}/>
+    </Route>
+  )
+)
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <div className="base h-screen bg-blue-200 font-nunito flex flex-col">
-            <Navbar/>
-            <div className='grid grid-cols-7 flex-grow'>
-              <Routes>
-                <Route
-                  path='/plans'
-                  exact
-                  element={<Plan/>}
-                />
-                <Route
-                  path='/deadlines'
-                  exact
-                  element={<Deadlines/>}
-                />
-                <Route
-                  path='/goals'
-                  exact
-                  element={<Goals/>}
-                />
-                <Route
-                  path='/calendar'
-                  exact
-                  element={<Calendar/>}
-                />
-              </Routes>
-              <Menu/>
-              <Music/>
-            </div>
-        </div>
-      </BrowserRouter>
+      <RouterProvider
+        router={router}
+      />
     </div>
   );
 }
