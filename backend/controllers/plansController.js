@@ -7,9 +7,9 @@ const getPlan = async (req, res) => {
 
     try {
         const plan = await PlanModel.findOne({ date: planDate });
-        res.status(200).json(plan);
+        res.status(200).json({plan, userid: res.userid});
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error: error.message, userid: res.userid});
     }
 }
 
@@ -33,9 +33,9 @@ const putPlan = async (req, res) => {
             }
         ).exec();
 
-        res.status(200).json(plan);
+        res.status(200).json({plan, userid: res.userid});
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error: error.message, userid: res.userid});
     }
     
 

@@ -1,20 +1,21 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, authPOST } from '../../HandleAuth'
 
 const AddForm = ({setMode, setUpdate}) => {
 
     const [title, setTitle] = useState(null);
     const [date, setDate] = useState(null);
+    const { setUserId } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const deadlineDate = new Date(date);
         const deadline = {title, date: deadlineDate};
         
-        await fetch('/api/deadlines', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(deadline)
-        })
+        const data = await authPOST('/api/deadlines', deadline, setUserId, navigate);
 
         setMode(0);
         setUpdate(true);

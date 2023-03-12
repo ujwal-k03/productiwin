@@ -1,18 +1,19 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, authPATCH } from '../../HandleAuth'
 
 const EditForm = ({setMode, deadline, setUpdate}) => {
     const [title, setTitle] = useState(deadline.title);
     const [date, setDate] = useState(deadline.date.substr(0,16));
+    const { setUserId } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const deadlineDate = new Date(date);
         const tempDeadline = {title, date: deadlineDate, _id: deadline._id};
-        await fetch('/api/deadlines', {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(tempDeadline)
-        })
+        const data = await authPATCH('/api/deadlines', tempDeadline, setUserId, navigate);
 
         setMode(0);
         setUpdate(true);

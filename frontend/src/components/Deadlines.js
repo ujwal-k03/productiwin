@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, authGET } from "../HandleAuth";
 import AddForm from "./deadlines/AddForm";
 import Deadline from "./deadlines/Deadline";
 import DelForm from "./deadlines/DelForm";
 import EditForm from "./deadlines/EditForm";
 
+
 const Deadlines = () => {
     const [deadlines, setDeadlines] = useState(null);
     const [deadline, setDeadline] = useState(false);
+    const { userId, setUserId } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // 0 for none
     // 1 for edit
@@ -21,11 +26,10 @@ const Deadlines = () => {
 
         // TODO: Make an abort controller for this
         const fetchDeadlines = async () => {
-            const response = await fetch('/api/deadlines');
-            const json = await response.json();
-            
-            if(response.ok) {
-                const deadlines = json.deadlines.sort((a, b) => {
+            const data = await authGET('/api/deadlines', setUserId, navigate);
+
+            if(data) {
+                const deadlines = data.deadlines.sort((a, b) => {
                     const aDate = new Date(a.date);
                     const bDate = new Date(b.date);
                     
@@ -36,9 +40,8 @@ const Deadlines = () => {
             }
         }
         fetchDeadlines();
-
         setUpdate(false);
-       
+
     }, [update]);
 
     return (

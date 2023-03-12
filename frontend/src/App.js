@@ -9,11 +9,13 @@ import Home from './layouts/Home';
 import Do from './layouts/Do';
 import NotFound from './layouts/NotFound';
 import Login from './layouts/Login';
+import Signup from './layouts/Signup';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Base/>}>
       <Route index element={<Home/>}></Route>
+      <Route path='signup' element={<Signup/>}></Route>
       <Route path='login' element={<Login/>}></Route>
       <Route path='do' element={<Do/>}>
         <Route path='calendar' element={<Calendar/>}></Route>
@@ -28,6 +30,7 @@ const router = createBrowserRouter(
 )
 
 function App() {
+
   return (
     <div className="App">
       <RouterProvider

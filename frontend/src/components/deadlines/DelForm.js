@@ -1,10 +1,14 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, authDELETE } from '../../HandleAuth'
+
 const DelForm = ({setMode, deadline, setUpdate}) => {
+    const { setUserId } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await fetch(`/api/deadlines/${deadline._id}`, {
-            method: 'DELETE',
-        })
+        authDELETE(`/api/deadlines/${deadline._id}`, setUserId, navigate);
 
         setMode(0);
         setUpdate(true);

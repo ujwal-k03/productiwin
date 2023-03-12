@@ -8,12 +8,11 @@ const showDeadlines = async (req, res) => {
     const deadlines_id = '63fde3eceaef20b32ddb8917';
 
     try {
-        const deadlines = await deadlinesModel.findById(deadlines_id, {_id: 0, deadlines: 1});
-        
-        res.status(200).json(deadlines);
+        const { deadlines } = await deadlinesModel.findById(deadlines_id, {_id: 0, deadlines: 1});
+        res.status(200).json({deadlines, userid: res.userid});
         
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message, userid: res.userid});
     }
 
 }
@@ -38,11 +37,11 @@ const addDeadline = async (req, res) => {
                 }
             }
         ).exec();
-  
-        res.status(200).json(deadline);
+
+        res.status(200).json({deadline, userid: res.userid});
         
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message, userid: res.userid });
     }
 }
 
@@ -83,10 +82,10 @@ const updateDeadline = async (req, res) => {
         ).exec();
         
         // Send the response
-        res.status(200).json(deadline);
+        res.status(200).json({deadline, userid: res.userid});
         
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message, userid: res.userid });
     }
 }
 
@@ -110,10 +109,10 @@ const deleteDeadline = async (req, res) => {
             }
         ).exec();
 
-        res.status(200).json({ msg: "Deleted succesfully" });
+        res.status(200).json({ msg: "Deleted succesfully", userid: res.userid});
 
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message, userid: res.userid});
     }
 }
 
