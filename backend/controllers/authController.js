@@ -38,11 +38,11 @@ const signupUser = async (req, res) => {
         const user = await User.create({email, password});
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge*1000});
-        await res.status(201).json({userid: user._id});
+        await res.status(201).json({userid: user._id, email: user.email});
 
     } catch (err) {
         const errors = handleErrors(err);
-        await res.status(400).json({errors, userid: null});
+        await res.status(400).json({errors, userid: null, email: null});
     }
 }
 
@@ -54,14 +54,30 @@ const loginUser = async (req, res) => {
         const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge*1000 });
-        res.status(200).json({userid: user._id});
+        res.status(200).json({userid: user._id, email: user.email});
 
     } catch (err) {
         const errors = {
             error: err.message
         }
-        res.status(400).json({errors, userid: null});
+        res.status(400).json({errors, userid: null, email: null});
     }
+}
+
+const getDetails = async (req, res) => {
+    
+    const token = req.cookies.jwt;
+    if(token){
+        jwt.verify(token, 'huge secret', async (errors, decodedToken) => {
+            if(!errors) {
+                const user = await User.findById(decodedToken.id).exec();
+                res.json({userid: user._id, email: user.email});
+            }
+            else
+                res.json({userid: null, email: null});
+        });
+    } else 
+        res.json({userid: null, email: null});
 }
 
 // logout user
@@ -75,4 +91,5 @@ module.exports = {
     signupUser,
     loginUser,
     logoutUser,
+    getDetails,
 }

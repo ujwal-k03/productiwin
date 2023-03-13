@@ -5,19 +5,27 @@ const checkAuth = (req, res, next) => {
         next();
         return;
     }
+    let oops = true;
 
     const token = req.cookies.jwt;
     if(token){
         jwt.verify(token, 'huge secret', (errors, decodedToken)=>{
-            if(errors)
-                res.json({userid: null});
-            else{
+            if(!errors){
+                oops = false;
                 res.userid = decodedToken.id;
                 next();
             }
         });
-    } else
-        res.json({userid: null});
+    } 
+
+    if(oops){
+        if(req.path.includes('auth'))
+            next();
+        else
+            res.json({userid: null});
+    }
+
+    return;
 }
 
 module.exports = checkAuth;

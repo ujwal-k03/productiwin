@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, authGET, authPUT } from "../HandleAuth";
 import AddGrid from "./plan/AddGrid";
 import Grid from "./plan/Grid";
 import { isOverlap } from "./plan/Overlap";
@@ -11,6 +13,8 @@ const Plan = () => {
     const [planDate, setPlanDate] = useState(null);
     const [tasks, setTasks] = useState(null);
     const [hiddens, setHiddens] = useState(Array(48).fill(false));
+    const navigate = useNavigate();
+    const { setUserId } = useContext(AuthContext);
 
     const modifyTask = (id, task) => {
         setTasks(tasks.map((tk) => {
@@ -47,11 +51,7 @@ const Plan = () => {
         }
         setTasks(null);
         const saveTasks = async () => {
-            const response = await fetch('/api/plans/', {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(newPlan)
-            })
+            const json = await authPUT('/api/plans/', newPlan, setUserId, navigate);
         }
         saveTasks().then(() => fetchPlan());
     }
@@ -73,11 +73,10 @@ const Plan = () => {
     }, [tasks])
 
     const fetchPlan = async () => {
-        const response = await fetch(`/api/plans/${date}`);
-        const json = await response.json();
 
-        if(response.ok){
-            const takses = json.tasks.map((task) => {
+        const json = await authGET(`/api/plans/${date}`, setUserId, navigate);
+        if(json){
+            const takses = json.plan.tasks.map((task) => {
                 return {
                     _id: task._id,
                     taskName: task.taskName,
@@ -86,8 +85,8 @@ const Plan = () => {
                     endTime: new Date(task.endTime)
                 }
             })
-            setPlanName(json.name);
-            setPlanDate(json.date);
+            setPlanName(json.plan.name);
+            setPlanDate(json.plan.date);
             setTasks(takses);
         }
     }
