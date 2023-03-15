@@ -7,12 +7,16 @@ const AddForm = ({setMode, setUpdate}) => {
 
     const [title, setTitle] = useState(null);
     const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+
+    const dateTime = date+"T"+time;
+
     const { setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const deadlineDate = new Date(date);
+        const deadlineDate = new Date(dateTime);
         const deadline = {title, date: deadlineDate};
         
         const data = await authPOST('/api/deadlines', deadline, setUserId, navigate);
@@ -21,7 +25,7 @@ const AddForm = ({setMode, setUpdate}) => {
         setUpdate(true);
     }
     return (
-        <div className="flex justify-center items-center absolute w-3/5 h-3/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-100 outline shadow-lg outline-1 rounded-lg">
+        <div className="deadline-form-card">
             <form className="flex flex-col items-center w-full" onSubmit={handleSubmit}>
                 <div className="flex justify-end w-full" onClick={()=>setMode(0)}>
                     <button type="button" className="cross-icon">
@@ -32,19 +36,30 @@ const AddForm = ({setMode, setUpdate}) => {
                 </div>
                 <h1 className="mb-20 text-center font-extrabold text-2xl border-b-2 border-gray-600"> Add a deadline </h1>
                 <label className="text-center font-bold text-2xl">Deadline title:</label>
-                <input className="rounded-sm outline outline-1 mb-8 mt-2 w-4/5"
+                <input className="rounded-sm outline outline-1 my-2 w-4/5"
                     type="text"
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <label className="text-center font-bold text-xl">Date: </label>
-                <input className="rounded-sm outline outline-1 mb-8 mt-2"
-                    type="datetime-local"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    required
-                />
+                <div>
+                    <label className="text-center font-bold text-xl">Date: </label>
+                    <input className="rounded-sm outline outline-1 my-2"
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="text-center font-bold text-xl">Time: </label>
+                    <input className="rounded-sm outline outline-1 my-2"
+                        type="time"
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
+                        required
+                    />
+                </div>
                 <button className="p-1 outline outline-1 rounded-lg w-1/2 outline-green-600 hover:bg-green-600 transition duration-300">Add deadline</button>
             </form>
         </div>

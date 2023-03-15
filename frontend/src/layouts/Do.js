@@ -1,14 +1,20 @@
-import { Outlet } from "react-router-dom";
-import Menu from '../components/Menu'
-import Music from '../components/Music'
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { AuthContext } from "../HandleAuth";
+
 const Do = () => {
-    return (
-        <div className='grid grid-cols-7 flex-grow'>
-            <Outlet/>
-            <Menu/>
-            <Music/>
-        </div>
-    );
+    const { userId } = useContext(AuthContext);
+
+    if(userId){
+        return (
+            <div className='w-full flex justify-center'>
+                <Outlet/>
+            </div>
+        );
+    }
+    else{
+        return <Navigate to='/login' />
+    }
 }
  
 export default Do;

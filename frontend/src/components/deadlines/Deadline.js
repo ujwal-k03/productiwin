@@ -3,7 +3,7 @@ const Deadline = ({deadline, setDeadline ,setMode}) => {
 
     const deadlineColor = deadlineDate <= Date.now() ? 'text-red-600' : 'text-green-600'
     return (
-        <div className="deadline mx-4 my-3 px-4 py-2 rounded-lg bg-slate-200 flex justify-between items-center">
+        <div className="deadline">
             <div>
                 <h1 className={`font-extrabold text-lg ${deadlineColor}`}>
                     {deadline.title}

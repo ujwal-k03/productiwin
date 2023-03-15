@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext, authGET, authPUT } from "../HandleAuth";
 import AddGrid from "./plan/AddGrid";
 import Grid from "./plan/Grid";
@@ -8,14 +8,21 @@ import Task from "./plan/Task";
 import { getTime } from "./plan/TimeTools";
 
 const Plan = () => {
-    const date= "2023-03-09T00:00:00.000Z";
+    const {year, month, date: dateE} = useParams();
+    let date;
+    const dummy = new Date();
+    if(!year)  
+        date = new Date(dummy.getFullYear(), dummy.getMonth(), dummy.getDate());
+    else
+        date = new Date(year, month, dateE);
+
     const [planName, setPlanName] = useState("Untitled Plan");
-    const [planDate, setPlanDate] = useState(null);
-    const [tasks, setTasks] = useState(null);
+    const [planDate, setPlanDate] = useState(date.toJSON());
+    const [tasks, setTasks] = useState([]);
     const [hiddens, setHiddens] = useState(Array(48).fill(false));
     const navigate = useNavigate();
     const { setUserId } = useContext(AuthContext);
-
+    
     const modifyTask = (id, task) => {
         setTasks(tasks.map((tk) => {
             if(tk._id === id)
@@ -25,6 +32,7 @@ const Plan = () => {
         }));
     };
 
+    // if()
     const addTask = (translate) => {
         const task = {
             _id: (Math.floor((Math.random()+1)*1e6)).toString(),
@@ -74,8 +82,8 @@ const Plan = () => {
 
     const fetchPlan = async () => {
 
-        const json = await authGET(`/api/plans/${date}`, setUserId, navigate);
-        if(json){
+        const json = await authGET(`/api/plans/${planDate}`, setUserId, navigate);
+        if(json.plan){
             const takses = json.plan.tasks.map((task) => {
                 return {
                     _id: task._id,
@@ -94,28 +102,33 @@ const Plan = () => {
     useEffect(() => {fetchPlan()}, []);
 
     return (
-        <div className="plan col-span-4 flex">
-            <div className="bg-white shadow-lg rounded-3xl m-4 flex-grow flex-col flex items-center relative">
-                <div className="flex items-center mt-3 mb-2">
-                    <label className="font-extrabold mx-2">Plan name: </label>
-                    <input type="text"
+            <div className="bg-gray-50 border border-gray-300 rounded-sm m-4 w-[720px] md:w-[960px] flex flex-col items-center relative h-[88vh]">
+                <div className="flex flex-col md:flex-row items-center justify-center mt-3 mb-2">
+                    <span>{date.toDateString()}</span>
+                    <h1 className="font-extrabold mx-2">Plan name: </h1>
+                    <div className="relative h-6 justify-center">
+                        <input type="text"
                         maxLength={30}
-                        className="bg-transparent rounded-sm" 
+                        className="bg-transparent rounded-sm text-center" 
                         value={planName} 
                         onChange={(e) => setPlanName(e.target.value)}
-                    />
-                    <button 
-                        onClick={savePlan}
-                        className="p-1 px-2 rounded-lg ml-3 bg-green-500 shadow-md hover:shadow-xl hover:bg-green-600 transition duration-200">
-                        Save
-                    </button>
-                    <button 
-                        onClick={discardPlan}
-                        className="p-1 px-2 rounded-lg ml-2 bg-red-500 shadow-md hover:shadow-xl hover:bg-red-600 transition duration-200">
-                        Discard
-                    </button>
+                        />
+                    </div>
+                    
+                    <div>
+                        <button 
+                            onClick={savePlan}
+                            className="p-1 px-2 rounded-lg ml-3 bg-green-500 shadow-md hover:shadow-xl hover:bg-green-600 transition duration-200">
+                            Save
+                        </button>
+                        <button 
+                            onClick={discardPlan}
+                            className="p-1 px-2 rounded-lg ml-2 bg-red-500 shadow-md hover:shadow-xl hover:bg-red-600 transition duration-200">
+                            Discard
+                        </button>
+                    </div>
                 </div>
-                <div className="canvas h-9/10 bg-pink-50 absolute w-11/12 left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 overflow-scroll outline-gray-300 outline outline-2">
+                <div className="canvas h-[78%] md:h-9/10 bg-pink-50 absolute w-11/12 left-1/2 md:top-[53%] top-[60%] -translate-x-1/2 -translate-y-1/2 overflow-scroll outline-gray-300 outline outline-2">
                     <div className="task dummy w-100 -top-[400px]"></div>
                     <div className="task dummy w-100 top-[1152px]"></div>
                     <Grid/>
@@ -129,10 +142,8 @@ const Plan = () => {
                         deleteTask={deleteTask}
                     />)}
                     <AddGrid addTask={addTask} hiddens={hiddens}/>
-                </div>
-                
+                </div>   
             </div>
-        </div>
     );
 }
  

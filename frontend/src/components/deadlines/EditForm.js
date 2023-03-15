@@ -5,7 +5,10 @@ import { AuthContext, authPATCH } from '../../HandleAuth'
 
 const EditForm = ({setMode, deadline, setUpdate}) => {
     const [title, setTitle] = useState(deadline.title);
-    const [date, setDate] = useState(deadline.date.substr(0,16));
+    
+    const [date, setDate] = useState(deadline.date.substr(0,10));
+    const [time, setTime] = useState(deadline.date.substr(11,5));
+    
     const { setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
         setUpdate(true);
     }
     return (
-        <div className="modify-card">
+        <div className="deadline-form-card">
             <form className="flex flex-col items-center w-full" onSubmit={handleSubmit}>
                 <div className="flex justify-end w-full" onClick={()=>setMode(0)}>
                     <button type="button" className="cross-icon">
@@ -29,7 +32,7 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                     </button>
                 </div>
                 <h1 className="mb-4 text-center font-extrabold text-2xl border-b-2 border-gray-600"> Edit deadline </h1>
-                <div className="deadline mx-4 px-4 mb-6 rounded-lg bg-slate-200 flex justify-between items-center">
+                <div className="deadline-mini-info">
                     <div>
                         <h1 className="font-extrabold text-lg">
                             {deadline.title}
@@ -46,13 +49,24 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 />
-                <label className="text-center font-bold text-xl">Date: </label>
-                <input className="rounded-sm outline outline-1 mb-8 mt-2"
-                type="datetime-local"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-                />
+                <div>
+                    <label className="text-center font-bold text-xl">Date: </label>
+                    <input className="rounded-sm outline outline-1 my-2"
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="text-center font-bold text-xl">Time: </label>
+                    <input className="rounded-sm outline outline-1 my-2"
+                        type="time"
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
+                        required
+                    />
+                </div>
                 <button className="p-1 outline outline-1 rounded-lg w-1/2 outline-blue-600 hover:bg-blue-400 transition duration-300">Edit deadline</button>
             </form>
         </div>

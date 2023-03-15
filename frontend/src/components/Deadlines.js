@@ -45,8 +45,7 @@ const Deadlines = () => {
     }, [update]);
 
     return (
-        <div className="deadlines col-span-4">
-            <div className="bg-white shadow-lg rounded-3xl m-4 flex flex-col relative">
+            <div className="border-gray-300 bg-gray-50 border rounded-sm m-4 w-[480px] md:w-[720px] flex flex-col relative h-[88vh]">
                 <h1 className="text-center font-extrabold uppercase text-3xl my-4">Deadlines</h1>
                 <div draggable="true" className="flex justify-center">
                     <button className="add-deadline-btn" onClick={()=>{setMode(3)}}>
@@ -58,7 +57,7 @@ const Deadlines = () => {
                         </span>
                     </button>
                 </div>
-                <div className="h-fuck-you mt-3 mb-2 overflow-scroll">
+                <div className="mt-3 mb-2 overflow-scroll">
                     { deadlines && deadlines.map((deadline) => (
                         <Deadline 
                             deadline={deadline}
@@ -72,7 +71,6 @@ const Deadlines = () => {
                 { mode===1 && <EditForm deadline={deadline} setMode={setMode} setUpdate={setUpdate}/> }
                 { mode===2 && <DelForm deadline={deadline} setMode={setMode} setUpdate={setUpdate}/> }
             </div>
-        </div>
     );
 }
  

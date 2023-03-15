@@ -1,20 +1,27 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useOutletContext, Link } from 'react-router-dom';
 import {AuthContext, authGET} from '../HandleAuth'
 
-export const Logout = () => {
-    const {setUser} = useContext(AuthContext);
-    setUser(null);
+const Logout = () => {
+    const {setUserId} = useContext(AuthContext);
+    const setEmail = useOutletContext();
+
+    useEffect(() => {
+        setUserId(null);
+        setEmail(null);
+        authGET('/api/auth/logout');
+    })
 
     return (
-        <div className="flex h-screen w-full justify-center">
-            <h1 className="text-6xl font-bold text-gray-600 font-sans relative top-1/4">
+        <div className="h-1/3 mx-auto relative top-[20%] flex flex-col justify-around items-center">
+            <h1 className="text-4xl font-bold text-gray-600 font-sans ">
                 Logged out successfully!
             </h1>
+            <Link className='menubar-item underline' to={'/login'}>
+                Log in again
+            </Link>        
         </div>
     );
 }
 
-export const logoutLoader = async () => {
-    const res = await authGET('/api/auth/logout');
-    return res;
-}
+export default Logout;

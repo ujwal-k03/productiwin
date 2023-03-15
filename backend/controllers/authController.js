@@ -82,9 +82,8 @@ const getDetails = async (req, res) => {
 
 // logout user
 const logoutUser = (req, res) => {
-    res.json({
-        message: "logged out"
-    })
+    res.cookie('jwt', '', { httpOnly: true, maxAge: 1 });
+    res.status(200).json({userid: null, email: null});
 }
 
 module.exports = {

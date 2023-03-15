@@ -14,9 +14,11 @@ export const authGET = async (url, setUserId, navigate) => {
     const json = await response.json();
     const userid = json.userid;
 
-    setUserId(userid);
+    if(setUserId)
+        setUserId(userid);
     if(userid == null){
-        navigate('/login');
+        if(navigate)
+            navigate('/login');
         return null;
     }
     else
@@ -33,9 +35,11 @@ export const authPOST = async (url, data, setUserId, navigate) => {
     const json = await response.json();
     const userid = json.userid;
 
-    setUserId(userid);
+    if(setUserId)
+        setUserId(userid);
     if(userid == null){
-        navigate('/login');
+        if(navigate)
+            navigate('/login');
         return null;
     }
     else
@@ -52,9 +56,11 @@ export const authPUT = async (url, data, setUserId, navigate) => {
     const json = await response.json();
     const userid = json.userid;
 
-    setUserId(userid);
+    if(setUserId)
+        setUserId(userid);
     if(userid == null){
-        navigate('/login');
+        if(navigate)
+            navigate('/login');
         return null;
     }
     else
@@ -71,9 +77,11 @@ export const authPATCH = async (url, data, setUserId, navigate) => {
     const json = await response.json();
     const userid = json.userid;
 
-    setUserId(userid);
+    if(setUserId)
+        setUserId(userid);
     if(userid == null){
-        navigate('/login');
+        if(navigate)
+            navigate('/login');
         return null;
     }
     else
@@ -87,9 +95,11 @@ export const authDELETE = async (url, setUserId, navigate) => {
     const json = await response.json();
     const userid = json.userid;
 
-    setUserId(userid);
+    if(setUserId)
+        setUserId(userid);
     if(userid == null){
-        navigate('/login');
+        if(navigate)
+            navigate('/login');
         return null;
     }
     else

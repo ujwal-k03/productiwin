@@ -1,11 +1,9 @@
-import {useContext, useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../HandleAuth';
+import {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';;
 
 const Signup = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const userId = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,19 +41,18 @@ const Signup = () => {
     }, []);
 
     return (
-        <div className="bg-white rounded-lg w-1/3 h-2/3 self-center relative top-[10%]">
+        <div className="auth-card">
             <h1 className="font-extrabold text-4xl my-6 p-6 px-10">Signup</h1>
             <form className="p-6 px-10 flex flex-col">
                 <label htmlFor="email" className="my-2">Email: </label>
-                <input type="text" name="email" required className="outline-none border-b-2 my-2"/>
+                <input type="text" name="email" required className="outline-none border-b-2 my-2 bg-transparent"/>
                 <div className="text-sm bg-red-200 px-2 rounded-md">{emailError}</div>
 
                 <label htmlFor="password" className="my-2">Password: </label>
-                <input type="password" name="password" required className="my-2 border-b-2 "/>
+                <input type="password" name="password" required className="my-2 border-b-2 bg-transparent"/>
                 <div className="text-sm bg-red-200 px-2 rounded-md">{passwordError}</div>
-                <button className="outline-1 rounded-md outline mt-2">Sign Up!</button>
+                <button className="outline-1 rounded-md outline mt-2 py-2 px-3 self-center">Sign Up!</button>
             </form>
-            <h1>{userId}</h1>
         </div>
     );
 }

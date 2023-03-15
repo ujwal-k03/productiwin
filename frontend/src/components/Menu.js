@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Timer from "./Timer";
 
 const Menu = () => {
     return (
@@ -51,7 +50,6 @@ const Menu = () => {
                         </li>
                     </ul>
                 </div>
-                <Timer/>
             </div>
         </div>
     );
