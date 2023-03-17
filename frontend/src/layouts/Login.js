@@ -54,12 +54,12 @@ const Login = () => {
             <h1 className="font-extrabold text-4xl my-6 p-6 px-10">Login</h1>
             <form className="p-6 px-10 flex flex-col ">
                 <label htmlFor="email" className="my-2">Email: </label>
-                <input type="text" name="email" required className="outline-none border-b-2 my-2 bg-transparent"/>
+                <input type="text" name="email" required className="outline-none border-b-2 my-2 bg-transparent dark:border-gray-500"/>
 
                 <label htmlFor="password" className="my-2">Password: </label>
-                <input type="password" name="password" required className="my-2 border-b-2 bg-transparent"/>
-                <div className="text-sm bg-red-200 px-2 mt-3 rounded-md">{error}</div>
-                <button className="outline-1 rounded-md outline mt-2 py-2 px-3 self-center">Login!</button>
+                <input type="password" name="password" required className="my-2 border-b-2 bg-transparent dark:border-gray-500"/>
+                <div className="text-sm dark:bg-red-700 dark:bg-opacity-75 px-2 mt-3 rounded-md">{error}</div>
+                <button className="rounded-md add-deadline-btn mt-2 py-2 px-3 self-center">Login!</button>
             </form>
         </div>
     );

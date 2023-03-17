@@ -41,7 +41,7 @@ const Calendar = () => {
     }
     
     return (
-            <div className="border border-gray-300 bg-gray-100 rounded-sm m-4 w-full flex flex-col relative h-[88vh]">
+            <div className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white rounded-sm m-4 w-full flex flex-col relative h-[88vh]">
                 <div className="flex gap-2 items-center justify-around w-1/2 mx-auto my-3">
                     <button onClick={() => setMonth(month-1)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -56,7 +56,7 @@ const Calendar = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-7 mx-2 my-1 bg-blue-400">
+                <div className="grid grid-cols-7 mx-2 my-1 bg-blue-400 dark:bg-blue-600">
                     <div className="text-center">Sun<span className="hidden md:inline">day</span></div>
                     <div className="text-center">Mon<span className="hidden md:inline">day</span></div>
                     <div className="text-center">Tue<span className="hidden md:inline">sday</span></div>

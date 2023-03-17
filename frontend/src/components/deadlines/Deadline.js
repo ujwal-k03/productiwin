@@ -1,7 +1,7 @@
 const Deadline = ({deadline, setDeadline ,setMode}) => {
     const deadlineDate = new Date(deadline.date);
 
-    const deadlineColor = deadlineDate <= Date.now() ? 'text-red-600' : 'text-green-600'
+    const deadlineColor = deadlineDate <= Date.now() ? 'text-red-500' : 'text-green-500'
     return (
         <div className="deadline">
             <div>

@@ -45,9 +45,9 @@ const Task = ({task, id, modifyTask, deleteTask}) => {
             }} 
             ref={resizeRef}
             id={id}
-            className={`flex items-start task right-0 top-0 w-11/12 bg-${color}-200 rounded-md text-center z-50`}>
+            className={`flex items-start task right-0 top-0 w-11/12 dark:bg-${color}-600 bg-${color}-500 rounded-md text-center z-50`}>
 
-                <div className="flex-shrink-0 text-xs h-[24px] bg-pink-300 rounded-md p-1 border border-gray-400 text-gray-700">
+                <div className="task-badge">
                     {getTimeString(translate)} - {getTimeString(height + translate)}
                 </div>
                 <div className="self-center px-2">

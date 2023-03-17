@@ -6,7 +6,7 @@ const AddRow = ({hidden, translate, addTask}) => {
 
     return (
         <div ref={selfRef}
-            id={`t${translate}`} className={`addrow w-11/12 h-[24px] hover:opacity-50 bg-white opacity-0`}>
+            id={`t${translate}`} className={`addrow addrow-style`}>
             <button 
                 disabled={hidden}
                 className="h-full w-full" onClick={addTranslatedTask}>

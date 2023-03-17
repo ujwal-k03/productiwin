@@ -45,7 +45,7 @@ const Deadlines = () => {
     }, [update]);
 
     return (
-            <div className="border-gray-300 bg-gray-50 border rounded-sm m-4 w-[480px] md:w-[720px] flex flex-col relative h-[88vh]">
+            <div className="deadlines">
                 <h1 className="text-center font-extrabold uppercase text-3xl my-4">Deadlines</h1>
                 <div draggable="true" className="flex justify-center">
                     <button className="add-deadline-btn" onClick={()=>{setMode(3)}}>
@@ -53,7 +53,7 @@ const Deadlines = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span className="mx-1">
-                            Add new deadline
+                            Add deadline
                         </span>
                     </button>
                 </div>

@@ -34,9 +34,9 @@ const AddForm = ({setMode, setUpdate}) => {
                         </svg>
                     </button>
                 </div>
-                <h1 className="mb-20 text-center font-extrabold text-2xl border-b-2 border-gray-600"> Add a deadline </h1>
+                <h1 className="mb-20 text-center font-extrabold text-2xl border-b-2 border-gray-600 dark:border-gray-400"> Add a deadline </h1>
                 <label className="text-center font-bold text-2xl">Deadline title:</label>
-                <input className="rounded-sm outline outline-1 my-2 w-4/5"
+                <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 w-4/5 bg-transparent"
                     type="text"
                     required
                     value={title}
@@ -44,7 +44,7 @@ const AddForm = ({setMode, setUpdate}) => {
                 />
                 <div>
                     <label className="text-center font-bold text-xl">Date: </label>
-                    <input className="rounded-sm outline outline-1 my-2"
+                    <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 bg-transparent"
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
@@ -53,14 +53,14 @@ const AddForm = ({setMode, setUpdate}) => {
                 </div>
                 <div className="mb-3">
                     <label className="text-center font-bold text-xl">Time: </label>
-                    <input className="rounded-sm outline outline-1 my-2"
+                    <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 bg-transparent"
                         type="time"
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
                         required
                     />
                 </div>
-                <button className="p-1 outline outline-1 rounded-lg w-1/2 outline-green-600 hover:bg-green-600 transition duration-300">Add deadline</button>
+                <button className="add-deadline-btn">Add deadline</button>
             </form>
         </div>
     );
