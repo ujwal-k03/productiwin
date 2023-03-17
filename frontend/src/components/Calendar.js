@@ -23,6 +23,7 @@ const Calendar = () => {
    
     const [month, setMonth] = useState(new Date().getMonth());
     const [data, setData] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     
     // Get the date month is referring to
     const curDate = new Date(new Date().getFullYear(), month, 1);
@@ -43,6 +44,7 @@ const Calendar = () => {
             });
             if(data.plans){
                 setData(data.plans);
+                setIsLoaded(true);
             }
         }
         f1();
@@ -63,7 +65,8 @@ const Calendar = () => {
         plansData[dat.getDate() - 1 + startDay] = val;
     })
 
-    return (
+    if(isLoaded)
+        return (
             <div className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white rounded-sm m-4 w-full flex flex-col relative h-[88vh]">
                 <div className="flex gap-2 items-center justify-around w-1/2 mx-auto my-3">
                     <button onClick={() => setMonth(month-1)}>
@@ -92,7 +95,13 @@ const Calendar = () => {
                     { arr.map((date, idx) => <Day date={date} today={today} data={plansData[idx]}/>) }
                 </div>
             </div>
-    );
+        );
+    else 
+        return (
+            <div className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white rounded-sm m-4 w-full flex flex-col relative h-[88vh]">
+                
+            </div>
+        )
 }
  
 export default Calendar;
