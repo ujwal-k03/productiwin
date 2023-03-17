@@ -31,7 +31,7 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                         </svg>
                     </button>
                 </div>
-                <h1 className="mb-4 text-center font-extrabold text-2xl border-b-2 border-gray-600"> Edit deadline </h1>
+                <h1 className="mb-10 text-center font-extrabold text-2xl border-b-2 border-gray-600 dark:border-gray-400"> Edit deadline </h1>
                 <div className="deadline-mini-info">
                     <div>
                         <h1 className="font-extrabold text-lg">
@@ -43,7 +43,7 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                     </div>
                 </div>
                 <label className="text-center font-bold text-2xl">Deadline title:</label>
-                <input className="rounded-sm outline outline-1 mb-4 mt-2 w-4/5"
+                <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 bg-transparent"
                 type="text"
                 required
                 value={title}
@@ -51,7 +51,7 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                 />
                 <div>
                     <label className="text-center font-bold text-xl">Date: </label>
-                    <input className="rounded-sm outline outline-1 my-2"
+                    <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 bg-transparent"
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
@@ -60,14 +60,14 @@ const EditForm = ({setMode, deadline, setUpdate}) => {
                 </div>
                 <div className="mb-3">
                     <label className="text-center font-bold text-xl">Time: </label>
-                    <input className="rounded-sm outline outline-1 my-2"
+                    <input className="rounded-sm border border-gray-300 dark:border-gray-500 my-2 bg-transparent"
                         type="time"
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
                         required
                     />
                 </div>
-                <button className="p-1 outline outline-1 rounded-lg w-1/2 outline-blue-600 hover:bg-blue-400 transition duration-300">Edit deadline</button>
+                <button className="edit-deadline-btn">Edit deadline</button>
             </form>
         </div>
     );

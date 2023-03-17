@@ -24,6 +24,11 @@ const taskSchema = new Schema({
 
 const planSchema = new Schema({
     _id: false,
+    userid: {
+        type: String,
+        required: true,
+        unique: false
+    },
     name: {
         type: String,
         default: "Untitled Plan"
@@ -31,7 +36,7 @@ const planSchema = new Schema({
     date: {
         type: Date,
         required: true,
-        unique: true,
+        unique: false,
     },
     tasks: {
         type: [taskSchema],

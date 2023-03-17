@@ -58,7 +58,7 @@ const Login = () => {
 
                 <label htmlFor="password" className="my-2">Password: </label>
                 <input type="password" name="password" required className="my-2 border-b-2 bg-transparent dark:border-gray-500"/>
-                <div className="text-sm dark:bg-red-700 dark:bg-opacity-75 px-2 mt-3 rounded-md">{error}</div>
+                <div className="text-sm dark:bg-red-700 bg-red-300 dark:bg-opacity-75 px-2 mt-3 rounded-md">{error}</div>
                 <button className="rounded-md add-deadline-btn mt-2 py-2 px-3 self-center">Login!</button>
             </form>
         </div>

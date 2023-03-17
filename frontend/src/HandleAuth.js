@@ -40,10 +40,8 @@ export const authPOST = async (url, data, setUserId, navigate) => {
     if(userid == null){
         if(navigate)
             navigate('/login');
-        return null;
     }
-    else
-        return json;
+    return json;
 }
 
 export const authPUT = async (url, data, setUserId, navigate) => {

@@ -5,7 +5,7 @@ const deadlineModel = require('../models/deadlinesModel').deadlineModel;
 const showDeadlines = async (req, res) => {
 
     // TODO: REPLACE THIS ONCE AUTH IS COMPLETE
-    const deadlines_id = '63fde3eceaef20b32ddb8917';
+    const deadlines_id = res.userid;
 
     try {
         const { deadlines } = await deadlinesModel.findById(deadlines_id, {_id: 0, deadlines: 1});
@@ -23,7 +23,7 @@ const addDeadline = async (req, res) => {
     const { title, date, description } = req.body;
     
     // TODO: REPLACE THIS ONCE AUTH IS COMPLETE
-    const deadlines_id = '63fde3eceaef20b32ddb8917'; 
+    const deadlines_id = res.userid; 
 
     try {
         const deadline = deadlineModel({title, date, description});
@@ -35,7 +35,7 @@ const addDeadline = async (req, res) => {
                 $push: {
                     deadlines: deadline
                 }
-            }
+            }, { upsert: true }
         ).exec();
 
         res.status(200).json({deadline, userid: res.userid});
@@ -51,7 +51,7 @@ const updateDeadline = async (req, res) => {
     const { title, date, _id } = req.body;
 
     // TODO: REPLACE THIS ONCE AUTH IS COMPLETE
-    const deadlines_id = '63fde3eceaef20b32ddb8917'; 
+    const deadlines_id = res.userid; 
 
     const deadline_id = _id;
 
@@ -92,7 +92,7 @@ const updateDeadline = async (req, res) => {
 
 // delete a deadline
 const deleteDeadline = async (req, res) => {
-    const deadlines_id = '63fde3eceaef20b32ddb8917'; 
+    const deadlines_id = res.userid; 
 
     const deadline_id = req.params.did;
 

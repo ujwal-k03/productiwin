@@ -15,6 +15,8 @@ module.exports = {
     'dark:bg-yellow-600',
     'opacity-50',
     'opacity-0',
+    'auto-rows-[110px]',
+    'auto-rows-[92px]',
   ],
   theme: {
     extend: {
