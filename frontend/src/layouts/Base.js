@@ -58,7 +58,7 @@ const Base = () => {
                 }
                 {
                     !loaded &&
-                    <h1>Loading...</h1>
+                    <h1 className='text-xl text-center text-gray-600 dark:text-gray-500 top-1/3 relative'>Loading...</h1>
                 }
                 
             </div>

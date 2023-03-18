@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const checkAuth = require('./authMiddleware');
+const cors = require('cors');
 
 // env variables
 require('dotenv').config();
@@ -15,6 +16,7 @@ const authRoutes = require('./routes/auth');
 
 // middleware
 // parse json data and attach it to req.body
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use((req, res, next) => {

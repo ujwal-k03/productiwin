@@ -1,15 +1,11 @@
 import { createContext } from "react";
 
-export const checkAuth = async () => {
-    const res = await fetch('/api/auth/status', {
-        method: 'GET'
-    });
+const BACKEND_URI='http://localhost:4000'
+// const BACKEND_URI='https://produtiwin.onrender.com'
 
-    const data = await res.json();
-    return data.user?.id;
-}
 
 export const authGET = async (url, setUserId, navigate) => {
+    url = BACKEND_URI + url
     const response = await fetch(url);
     const json = await response.json();
     const userid = json.userid;
@@ -26,6 +22,7 @@ export const authGET = async (url, setUserId, navigate) => {
 }
 
 export const authPOST = async (url, data, setUserId, navigate) => {
+    url = BACKEND_URI + url
     const response = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -45,6 +42,7 @@ export const authPOST = async (url, data, setUserId, navigate) => {
 }
 
 export const authPUT = async (url, data, setUserId, navigate) => {
+    url = BACKEND_URI + url
     const response = await fetch(url, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -66,6 +64,7 @@ export const authPUT = async (url, data, setUserId, navigate) => {
 }
 
 export const authPATCH = async (url, data, setUserId, navigate) => {
+    url = BACKEND_URI + url
     const response = await fetch(url, {
         method: 'PATCH',
         headers: {'Content-Type': 'application/json'},
@@ -87,6 +86,7 @@ export const authPATCH = async (url, data, setUserId, navigate) => {
 }
 
 export const authDELETE = async (url, setUserId, navigate) => {
+    url = BACKEND_URI + url
     const response = await fetch(url, {
         method: 'DELETE'
     })
