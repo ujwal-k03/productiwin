@@ -37,8 +37,8 @@ const Deadlines = () => {
                 })
                 
                 setDeadlines(deadlines);
-                setUpdate(false);
             }
+            setUpdate(false);
         }
         fetchDeadlines();
     }, [update]);

@@ -99,8 +99,8 @@ const Plan = () => {
             setPlanName(json.plan.name);
             setPlanDate(json.plan.date);
             setTasks(takses);
-            setLoaded(true);
         }
+        setLoaded(true);
     }
 
     useEffect(() => {fetchPlan()}, []);
