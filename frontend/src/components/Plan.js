@@ -19,6 +19,7 @@ const Plan = () => {
     const [planName, setPlanName] = useState("Untitled Plan");
     const [planDate, setPlanDate] = useState(date.toJSON());
     const [tasks, setTasks] = useState([]);
+    const [loaded, setLoaded] = useState(false);
     const [hiddens, setHiddens] = useState(Array(48).fill(false));
     const navigate = useNavigate();
     const { setUserId } = useContext(AuthContext);
@@ -58,6 +59,7 @@ const Plan = () => {
             tasks: tasks
         }
         setTasks(null);
+        setLoaded(false);
         const saveTasks = async () => {
             const json = await authPUT('/api/plans/', newPlan, setUserId, navigate);
         }
@@ -66,6 +68,7 @@ const Plan = () => {
 
     const discardPlan = () => {
         setTasks(null);
+        setLoaded(false);
         fetchPlan();
     }
 
@@ -96,6 +99,7 @@ const Plan = () => {
             setPlanName(json.plan.name);
             setPlanDate(json.plan.date);
             setTasks(takses);
+            setLoaded(true);
         }
     }
 
@@ -103,46 +107,56 @@ const Plan = () => {
 
     return (
             <div className="plan">
-                <div className="flex flex-col md:flex-row items-center justify-center mt-3 mb-2">
-                    <span>{date.toDateString()}</span>
-                    <h1 className="font-extrabold mx-2">Plan name: </h1>
-                    <div className="relative h-6 justify-center">
-                        <input type="text"
-                        maxLength={30}
-                        className="bg-transparent rounded-sm text-center" 
-                        value={planName} 
-                        onChange={(e) => setPlanName(e.target.value)}
-                        />
-                    </div>
-                    
+                {
+                    loaded &&
                     <div>
-                        <button 
-                            onClick={savePlan}
-                            className="p-1 px-2 rounded-lg ml-3 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 transition duration-200">
-                            Save
-                        </button>
-                        <button 
-                            onClick={discardPlan}
-                            className="p-1 px-2 rounded-lg ml-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 transition duration-200">
-                            Discard
-                        </button>
+                        <div className="flex flex-col md:flex-row items-center justify-center mt-3 mb-2">
+                            <span>{date.toDateString()}</span>
+                            <h1 className="font-extrabold mx-2">Plan name: </h1>
+                            <div className="relative h-6 justify-center">
+                                <input type="text"
+                                maxLength={30}
+                                className="bg-transparent rounded-sm text-center" 
+                                value={planName} 
+                                onChange={(e) => setPlanName(e.target.value)}
+                                />
+                            </div>
+                            
+                            <div>
+                                <button 
+                                    onClick={savePlan}
+                                    className="p-1 px-2 rounded-lg ml-3 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 transition duration-200">
+                                    Save
+                                </button>
+                                <button 
+                                    onClick={discardPlan}
+                                    className="p-1 px-2 rounded-lg ml-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 transition duration-200">
+                                    Discard
+                                </button>
+                            </div>
+                        </div>
+                        <div className="plan-canvas canvas">
+                            <div className="task dummy w-100 -top-[400px]"></div>
+                            <div className="task dummy w-100 top-[1152px]"></div>
+                            <Grid/>
+                            {tasks && tasks.map((task) => 
+                            <Task
+                                tasks={tasks}
+                                key={task._id}
+                                task={task}
+                                id={task._id} 
+                                modifyTask={modifyTask}
+                                deleteTask={deleteTask}
+                            />)}
+                            <AddGrid addTask={addTask} hiddens={hiddens}/>
+                        </div>
                     </div>
-                </div>
-                <div className="plan-canvas canvas">
-                    <div className="task dummy w-100 -top-[400px]"></div>
-                    <div className="task dummy w-100 top-[1152px]"></div>
-                    <Grid/>
-                    {tasks && tasks.map((task) => 
-                    <Task
-                        tasks={tasks}
-                        key={task._id}
-                        task={task}
-                        id={task._id} 
-                        modifyTask={modifyTask}
-                        deleteTask={deleteTask}
-                    />)}
-                    <AddGrid addTask={addTask} hiddens={hiddens}/>
-                </div>   
+                }
+                {
+                    !loaded &&
+                    <span className="text-lg font-extrabold text-gray-600 dark:text-gray-500 relative top-1/3">Loading...</span>
+                }
+                   
             </div>
     );
 }
