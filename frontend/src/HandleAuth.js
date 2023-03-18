@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 // const BACKEND_URI='http://localhost:4000'
-const BACKEND_URI='https://productiwinapi.onrender.com'
+const BACKEND_URI=''
 
 
 export const authGET = async (url, setUserId, navigate) => {
