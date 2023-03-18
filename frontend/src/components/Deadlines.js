@@ -28,7 +28,7 @@ const Deadlines = () => {
         const fetchDeadlines = async () => {
             const data = await authGET('/api/deadlines', setUserId, navigate);
 
-            if(data) {
+            if(data.deadlines) {
                 const deadlines = data.deadlines.sort((a, b) => {
                     const aDate = new Date(a.date);
                     const bDate = new Date(b.date);
