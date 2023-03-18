@@ -34,7 +34,6 @@ const Day = ({date, today, data}) => {
         return <Navigate to={`/do/plans/${year}/${month}/${datE}`}/>
 
     if(data && data.tasks){
-        console.log(data.tasks)
         data.tasks.sort((a,b) => (new Date(a.startTime) - new Date(b.startTime)));
     }
 
